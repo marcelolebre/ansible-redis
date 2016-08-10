@@ -1,0 +1,13 @@
+---
+- name: Update ubuntu
+  apt: update_cache=yes
+  become: true
+
+- name: Install build-essentials
+  apt: pkg=build-essential
+  become: true
+
+- name: Install TCL
+  apt: pkg=tcl8.5
+  become: true
+      

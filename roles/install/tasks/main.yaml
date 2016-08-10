@@ -1,0 +1,17 @@
+---
+    - name: Download Redis
+      get_url: url=http://download.redis.io/releases/redis-stable.tar.gz dest=/tmp/ mode=0440
+      become: true
+
+    - name: Unarchive Redis Tar
+      unarchive: src=/tmp/redis-stable.tar.gz dest=/tmp remote_src=yes copy=no
+      become: true
+
+    - name: build redis
+      make: chdir=/tmp/redis-stable
+
+    - name: testing redis build
+      make: chdir=/tmp/redis-stable target=test
+
+    - name: install redis
+      make: chdir=/tmp/redis-stable target=install

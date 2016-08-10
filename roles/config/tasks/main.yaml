@@ -1,0 +1,27 @@
+---
+  - name: create /etc/redis to store redis.conf
+    file: path=/etc/redis state=directory
+    become: yes
+
+  - name: create /var/lib/redis to store dump files
+    file: path=/var/lib/redis state=directory
+    become: yes
+
+  - name: copy redis.conf file
+    copy: src=templates/redis.conf dest=/etc/redis/redis.conf
+
+  - name: install redis service
+    copy: src=templates/redis.service dest=/etc/systemd/system/redis.service
+
+  - name: create redis user
+    command: adduser --system --group --no-create-home redis
+    become: yes
+
+  - name: adjust owner permissions
+    file: path=/var/lib/redis state=directory owner=redis group=redis
+    become: yes
+ 
+  - name: limit other users
+    file: path=/var/lib/redis state=directory mode=770
+    become: yes
+      

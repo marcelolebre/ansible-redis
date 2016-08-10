@@ -1,0 +1,11 @@
+---
+    - name: enable redis service
+      command: systemctl enable redis
+      become: yes
+
+    - name: restart redis
+      command: systemctl restart redis
+      become: yes
+
+
+      

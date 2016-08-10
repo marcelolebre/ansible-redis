@@ -1,0 +1,6 @@
+---
+  - name: cleaning up build files
+    command: rm -rf /tmp/{{ item }}
+    with_items:
+      - redis-stable
+      - redis-stable.tar.gz
